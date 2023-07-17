@@ -114,29 +114,26 @@ func GetVersions() (versions []version, err error) {
 			return nil, err
 		}
 
-		updateLog := version{
+		versions = append(versions, version{
 			Name:          folder,
 			OldVersion:    oldVersion,
 			NewVersion:    newVersion,
 			OldIntVersion: oldIntVersion,
 			NewIntVersion: newIntVersion,
-		}
-		versions = append(versions, updateLog)
+		})
 
 		newBody := strings.Replace(string(decodedNew), oldVersion, newVersion, 1)
 
-		commit := updatedFileBody{
+		updateContent(updatedFileBody{
 			Sha:     initFileNew.Sha,
-			Message: fmt.Sprintf("#ignore Version increase for %s from %s to %s", updateLog.Name, updateLog.OldVersion, updateLog.NewVersion),
+			Message: fmt.Sprintf("Version increase for %s from %s to %s", folder, oldVersion, newVersion),
 			Committer: committer{
 				Name:  config.CommitterName,
 				Email: config.CommitterEmail,
 			},
 			Branch:  config.CommitBranch,
 			Content: base64.StdEncoding.EncodeToString([]byte(newBody)),
-		}
-
-		updateContent(commit, initFileNew.Path)
+		}, initFileNew.Path)
 	}
 
 	return

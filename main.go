@@ -57,15 +57,12 @@ func getPrompt() (prompt string, err error) {
 	for _, c := range commits {
 		message := c.Commit.Message
 
-		// check if message starts with "Merge branch" or "Merge pull request" or "Merge remote-tracking branch"
-		if strings.HasPrefix(message, "Merge branch") || strings.HasPrefix(message, "Merge pull request") || strings.HasPrefix(message, "Merge remote-tracking branch") {
+		//check if the commit contains a changelog message
+		if !strings.HasPrefix(message, "#changelog") {
 			continue
 		}
 
-		//check if the commit is just a followup commit of the previous ones
-		if strings.HasPrefix(message, "#ignore") {
-			continue
-		}
+		message = strings.Replace(message, "#changelog ", "", 1)
 
 		// remove links from the message
 		re := regexp.MustCompile(`\bhttps?://\S+`)
