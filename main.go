@@ -5,7 +5,6 @@ import (
 	"pull-request-formatter/pkg/config"
 	"pull-request-formatter/pkg/git"
 	"pull-request-formatter/pkg/log"
-	"pull-request-formatter/pkg/openai"
 	"regexp"
 	"strings"
 )
@@ -17,25 +16,25 @@ func main() {
 		return
 	}
 
-	prompt, err := getPrompt()
-	if err != nil {
-		log.Error(err)
-		return
-	}
-
-	changelog, err := openai.Send(prompt)
-	if err != nil {
-		log.Error(err)
-		return
-	}
-
-	log.SaveToFile(changelog, "changelog")
-
-	err = git.SetPRDescription(changelog)
-	if err != nil {
-		log.Error(err)
-		return
-	}
+	//prompt, err := getPrompt()
+	//if err != nil {
+	//	log.Error(err)
+	//	return
+	//}
+	//
+	//changelog, err := openai.Send(prompt)
+	//if err != nil {
+	//	log.Error(err)
+	//	return
+	//}
+	//
+	//log.SaveToFile(changelog, "changelog")
+	//
+	//err = git.SetPRDescription(changelog)
+	//if err != nil {
+	//	log.Error(err)
+	//	return
+	//}
 
 	err = createPrComment()
 	if err != nil {
