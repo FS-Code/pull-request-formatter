@@ -32,11 +32,11 @@ func Error(err error) {
 
 	//----------------INTEGRATIONS-------------------//(NOTE: The integrations will only work if the required params configured in the .env file)
 
-	telegramError() //send error notification to telegram
+	//telegramError() //send error notification to telegram
 }
 
 func Success() {
 	//----------------INTEGRATIONS-------------------//(NOTE: The integrations will only work if the required params configured in the .env file)
 
-	telegramSuccess() //send success notification to telegram
+	//telegramSuccess() //send success notification to telegram
 }
